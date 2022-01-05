@@ -17,10 +17,6 @@ doxx_messages = ["24 Horder", "Horder Avenue", "Dylan used to be one of the best
 
 @bot.event
 async def on_ready():
-    #bot_name = 
-    bot_name = random.choice(bot_name_list)
-    activity = discord.Game(name=bot_name, type=3)
-    await bot.change_presence(status=discord.Status.idle, activity=activity)
     print('We have logged in as {0.user}'.format(bot))
 
 @bot.event
@@ -28,7 +24,6 @@ async def on_message(message):
     msg = message.content
     if message.author == bot.user:
         return
-    
     
     if any(word in msg for word in doxx_activation):
         dylan_doxx = random.choice(doxx_messages)
