@@ -14,10 +14,12 @@ bot_name_list = ["Shitting Brock's Pants", "Googling Funny Monkee", "Cock and Ba
 doxx_activation = ["dylan", "flyingluigis", "lewongles", "cunt"]
 doxx_messages = ["24 Horder", "Horder Avenue", "Dylan used to be one of the best OCE D.Vas. Point and laugh.", "https://www.google.com/maps/place/24+Horder+Ave,+Labrador+QLD+4215/@-27.9503754,153.3973667,3a,75y,174.26h,90t/data=!3m7!1e1!3m5!1sMHatMFIqA2iLPL2hsZnadg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fpanoid%3DMHatMFIqA2iLPL2hsZnadg%26cb_client%3Dsearch.gws-prod.gps%26w%3D86%26h%3D86%26yaw%3D174.25719%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656!4m5!3m4!1s0x6b910fde80b478f3:0x5d728e1be878fe4b!8m2!3d-27.9505861!4d153.3973861", \
     "GET ON POINT!!!", "FUCKING SHOOT HIM!!!"]
+general_id = 927098515782504471
 
 @bot.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
+    doxx_auto.start()
 
 @bot.event
 async def on_message(message):
@@ -35,9 +37,9 @@ async def on_message(message):
         await message.channel.send(dylan_doxx)
         print(doxx_word_blacklist)
 
-@tasks.loop(seconds=2)
+@tasks.loop(seconds=60)
 async def doxx_auto():
-    channel = bot.get_channel("general")
+    channel = bot.get_channel(general_id)
     await channel.send("monkee")
     print("doxx dylan")
 
