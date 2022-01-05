@@ -11,7 +11,9 @@ bot = commands.Bot(command_prefix=PREFIX, description='Hi')
 
 @bot.event
 async def on_ready():
-    bot_name_list = ["Shitting Brock's Pants", "Googling Funny Monkee", "Cock and Balls", "Doxxing Dylan", "https://www.youtube.com/user/JordanPetersonVideos"]
+    bot_name_list = ["Shitting Brock's Pants", "Googling Funny Monkee", "Cock and Balls", "Doxxing Dylan", "https://www.youtube.com/user/JordanPetersonVideos", \
+        "https://www.youtube.com/watch?v=1XNoiP_nZgs"]
+    #bot_name = 
     bot_name = random.choice(bot_name_list)
     activity = discord.Game(name=bot_name, type=3)
     await bot.change_presence(status=discord.Status.idle, activity=activity)
