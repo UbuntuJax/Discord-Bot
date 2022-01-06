@@ -32,28 +32,26 @@ async def on_message(message):
         return
     
     if any(word in msg for word in doxx_activation):
-        dylan_doxx = random.choice(doxx_messages)
-        while dylan_doxx in doxx_word_blacklist:
-            dylan_doxx = random.choice(doxx_messages)
-        doxx_word_blacklist.append(dylan_doxx)
-        if len(doxx_word_blacklist) == 3:
-            doxx_word_blacklist.pop(0)
-        if message == None:
-            await channel.send(dylan_doxx)
-        else:
-            await message.channel.send(dylan_doxx)
-        #print(doxx_word_blacklist)
-        t0 = time.time()
+        await doxx_him(message.channel)
 
 async def doxx_him(channel, message=None):
-    return
+    global t0
+    dylan_doxx = random.choice(doxx_messages)
+    while dylan_doxx in doxx_word_blacklist:
+        dylan_doxx = random.choice(doxx_messages)
+    doxx_word_blacklist.append(dylan_doxx)
+    if len(doxx_word_blacklist) == 3:
+        doxx_word_blacklist.pop(0)
+    await channel.send(dylan_doxx)
+    #print(doxx_word_blacklist)
+    t0 = time.time()
 
-@tasks.loop(seconds=0.1)
+@tasks.loop(seconds=86400)
 async def doxx_auto():
     global t0
     channel = bot.get_channel(general_id)
     time_sub = time.time() - t0
-    if time_sub > 3:
+    if time_sub > 604800:
         await channel.send("Dylan hasn't been doxxed in a week!!!")
         await doxx_him(channel)
 
