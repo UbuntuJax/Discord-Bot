@@ -5,7 +5,7 @@ from discord.ext import commands
 import os
 
 PREFIX = ("$")
-bot = commands.Bot(command_prefix=PREFIX, description='Hi')
+bot = commands.Bot(command_prefix=PREFIX, description='Cock and Balls')
 
 
 @bot.event
