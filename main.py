@@ -12,4 +12,8 @@ bot = commands.Bot(command_prefix=PREFIX, description='Cock and Balls')
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
 
+@bot.event
+async def on_message():
+    
+
 bot.run(os.getenv('TOKEN'))
