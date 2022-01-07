@@ -14,6 +14,13 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
+    global t0
+    channel = bot.get_channel(general_id)
+    msg = message.content
+    if message.author == bot.user:
+        return
+    
+    if message.starts
     
     
 
