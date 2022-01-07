@@ -6,6 +6,9 @@ import os
 
 PREFIX = ("$")
 bot = commands.Bot(command_prefix=PREFIX, description='Cock and Balls')
+help_message = "Doxx dylan by typing one of the doxx dylan keywords. These are: \"dylan\", \"flyingluigis\", \"lewongles\", and \"cunt\". \
+This function will execute itself if a week passes without anyone doxxing dylan."
+general_id = 927098515782504471
 
 
 @bot.event
@@ -20,7 +23,13 @@ async def on_message(message):
     if message.author == bot.user:
         return
     
-    if message.starts
+    if message.content.startswith('$doxxandballs'):
+        await message.channel.send(help_message)
+
+        """if message.content.startswith('$inspire'):
+        quote = get_quote()
+        await message.channel.send(quote)"""
+        
     
     
 
