@@ -5,11 +5,14 @@ from discord.ext import commands, tasks
 import os
 import random
 import time
+import asyncio
+from itertools import cycle
 
 PREFIX = ("$")
 bot = commands.Bot(command_prefix=PREFIX, description='Cock and Balls')
 
 doxx_word_blacklist = []
+bot_name_blacklist = []
 bot_name_list = ["Shitting Brock's Pants", "Googling Funny Monkee", "Cock and Balls", "Doxxing Dylan", "https://www.youtube.com/user/JordanPetersonVideos", \
         "https://www.youtube.com/watch?v=1XNoiP_nZgs"]
 doxx_activation = ["dylan", "flyingluigis", "lewongles", "cunt"]
@@ -19,6 +22,21 @@ help_message = "Doxx dylan by typing one of the doxx dylan keywords. These are: 
 This function will execute itself if a week passes without anyone doxxing dylan."
 general_id = 927098515782504471
 t0 = time.time()
+
+async def change_status():
+    await bot.wait_until_ready()
+    msgs = random.choice(bot_name_list)
+    while msgs in bot_name_blacklist:
+        msgs = random.choice(bot_name_list)
+    doxx_word_blacklist.append(msgs)
+    if len(doxx_word_blacklist) == 3:
+        doxx_word_blacklist.pop(0)
+    
+    while not bot.is_closed:
+        current_status = msgs
+        await bot.change_presence(game=discord.Game(name=current_status))
+        await asyncio.sleep(10)
+
 
 @bot.event
 async def on_ready():
