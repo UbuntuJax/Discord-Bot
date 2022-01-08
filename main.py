@@ -25,22 +25,24 @@ t0 = time.time()
 
 async def change_status():
     await bot.wait_until_ready()
+    
+    while not bot.is_closed:
+        msgs = await pick_status()
+        await bot.change_presence(game=discord.Game(name=msgs))
+        await asyncio.sleep(1)
+
+async def pick_status(msgs):
     msgs = random.choice(bot_name_list)
+    #global because otherwise when the function terminates it will not remember what phrases are blacklisted
+    global bot_name_blacklist
     while msgs in bot_name_blacklist:
         msgs = random.choice(bot_name_list)
     doxx_word_blacklist.append(msgs)
     if len(doxx_word_blacklist) == 3:
         doxx_word_blacklist.pop(0)
-    
-    while not bot.is_closed:
-        current_status = msgs
-        await bot.change_presence(game=discord.Game(name=current_status))
-        await asyncio.sleep(10)
-
 
 @bot.event
-async def on_ready():
-    #bot_name = 
+async def on_ready(): 
     bot_name = random.choice(bot_name_list)
     activity = discord.Game(name=bot_name, type=3)
     await bot.change_presence(status=discord.Status.idle, activity=activity)
@@ -62,7 +64,10 @@ async def on_message(message):
         await message.channel.send(help_message)
 
 async def doxx_him(channel, message=None):
+    #global so that the function can edit t0 from within
     global t0
+    #global because otherwise when the function terminates it will not remember what phrases are blacklisted
+    global doxx_word_blacklist
     dylan_doxx = random.choice(doxx_messages)
     while dylan_doxx in doxx_word_blacklist:
         dylan_doxx = random.choice(doxx_messages)
@@ -70,7 +75,6 @@ async def doxx_him(channel, message=None):
     if len(doxx_word_blacklist) == 3:
         doxx_word_blacklist.pop(0)
     await channel.send(dylan_doxx)
-    #print(doxx_word_blacklist)
     t0 = time.time()
 
 @tasks.loop(seconds=86400)
