@@ -24,15 +24,18 @@ general_id = 927098515782504471
 t0 = time.time()
 
 async def change_status():
+    print("reached status")
     await bot.wait_until_ready()
     
     while not bot.is_closed:
         msgs = await pick_status()
         await bot.change_presence(game=discord.Game(name=msgs))
+        print(msgs)
         await asyncio.sleep(1)
 
 async def pick_status(msgs):
     msgs = random.choice(bot_name_list)
+    print(msgs)
     #global because otherwise when the function terminates it will not remember what phrases are blacklisted
     global bot_name_blacklist
     while msgs in bot_name_blacklist:
@@ -40,12 +43,13 @@ async def pick_status(msgs):
     doxx_word_blacklist.append(msgs)
     if len(doxx_word_blacklist) == 3:
         doxx_word_blacklist.pop(0)
+    return msgs
 
 @bot.event
 async def on_ready(): 
-    bot_name = random.choice(bot_name_list)
-    activity = discord.Game(name=bot_name, type=3)
-    await bot.change_presence(status=discord.Status.idle, activity=activity)
+    # bot_name = random.choice(bot_name_list)
+    # activity = discord.Game(name=bot_name, type=3)
+    # await bot.change_presence(status=discord.Status.idle, activity=activity)
     doxx_auto.start()
     print('We have logged in as {0.user}'.format(bot))
 
@@ -89,4 +93,5 @@ async def doxx_auto():
         print("doxx dylan")
         t0 = time.time()
 
+bot.loop.create_task(change_status())
 bot.run(os.getenv('TOKEN'))
