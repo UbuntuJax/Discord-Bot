@@ -22,6 +22,7 @@ help_message = "Doxx dylan by typing one of the doxx dylan keywords. These are: 
 This function will execute itself if a week passes without anyone doxxing dylan."
 general_id = 927098515782504471
 t0 = time.time()
+dylan_id = 135341650917457920
 
 @bot.event
 async def on_ready(): 
@@ -42,14 +43,18 @@ async def on_message(message):
     if any(word in msg for word in doxx_activation):
         await doxx_him(message.channel)
 
-    if message.content.startswith('$doxxandballs'):
+    if msg.startswith('$doxxandballs'):
         await message.channel.send(help_message)
 
-    elif message.content.startswith('$d'):
+    elif msg.startswith('$d'):
         min = 1
         try:
-            max = int(message[2:len(message)])
-            await message.channel.send(f"You have rolled a {random.randint(min, max)}")
+            max = int(msg[2:len(msg)])
+            roll = random.randint(min, max)
+            await message.channel.send(f"You have rolled a {roll}!")
+            if (message.author.id == dylan_id and roll == min) or (message.author.id != dylan_id and roll == max):
+                await doxx_him(message.channel)
+
         except ValueError:
             await message.channel.send("not in proper form")
 
