@@ -56,7 +56,7 @@ async def on_message(message):
                 await doxx_him(message.channel)
 
         except ValueError:
-            await message.channel.send("not in proper form")
+            await message.channel.send("This command is not in the proper form. Dice roll commands must be of the form \"d100\".")
 
 
 
