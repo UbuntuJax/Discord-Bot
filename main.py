@@ -1,7 +1,7 @@
 #Robot Password: OTI3MDk4NzgwNTIyNzkwOTc0.YdFSBQ.Hjft2JU_pFhyDmXKYGHaz9Ek8wk
 #I want a bot which pulls random quotes from the quotes chat and sends them to whichever channel the user is in when someone types '!IShitPant'
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 import os
 
 PREFIX = ("$")
@@ -17,5 +17,9 @@ async def on_message(message):
     if message.content.startswith("$doxxhere"):
         global default_channel
         default_channel = message.channel.id
+
+@tasks.loop(seconds=86400)
+async def doxx_auto():
+    
 
 bot.run(os.getenv('TOKEN'))
