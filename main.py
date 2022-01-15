@@ -6,7 +6,7 @@ import os
 
 PREFIX = ("$")
 bot = commands.Bot(command_prefix=PREFIX, description='Cock and Balls')
-
+default_channel = str()
 
 @bot.event
 async def on_ready():
@@ -14,6 +14,8 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    if message.content.startswith
+    if message.content.startswith("$doxxhere"):
+        global default_channel
+        default_channel = message.channel.id
 
 bot.run(os.getenv('TOKEN'))
