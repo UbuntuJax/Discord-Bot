@@ -45,9 +45,14 @@ async def on_message(message):
     if message.content.startswith('$doxxandballs'):
         await message.channel.send(help_message)
 
-    if message.content.startswith('$d'):
-        length = len(message)
-        
+    elif message.content.startswith('$d'):
+        min = 1
+        try:
+            max = int(message[2:len(message)])
+        except ValueError:
+            await message.channel.send("not in proper form")
+
+
 
 async def doxx_him(channel, message=None):
     #global so that the function can edit t0 from within
