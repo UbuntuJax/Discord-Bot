@@ -49,6 +49,7 @@ async def on_message(message):
         min = 1
         try:
             max = int(message[2:len(message)])
+            await message.channel.send(f"You have rolled a {random.randint(min, max)}")
         except ValueError:
             await message.channel.send("not in proper form")
 
