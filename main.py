@@ -59,12 +59,12 @@ async def doxx_him(channel, message=None):
     await channel.send(dylan_doxx)
     t0 = time.time()
 
-@tasks.loop(seconds=86400)
+@tasks.loop(seconds=0.1)
 async def doxx_auto():
     global t0
     channel = bot.get_channel(general_id)
     time_sub = time.time() - t0
-    if time_sub > 604800:
+    if time_sub > 10:
         await channel.send("Dylan hasn't been doxxed in a week!!!")
         await doxx_him(channel)
 
