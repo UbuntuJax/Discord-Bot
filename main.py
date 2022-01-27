@@ -20,7 +20,7 @@ doxx_messages = ["24 Horder", "Horder Avenue", "Dylan used to be one of the best
     "GET ON POINT!!!", "FUCKING SHOOT HIM!!!"]
 help_message = "Doxx dylan by typing one of the doxx dylan keywords. These are: \"dylan\", \"flyingluigis\", \"lewongles\", and \"cunt\". \
 You can also roll the dice by typing \"$d[number]\" (e.g. $d20). Dylan will be doxxed automatically if a week passes without anyone doxxing dylan."
-general_id = 927098515782504471
+general_id = 743683689988358146
 t0 = time.time()
 dylan_id = 135341650917457920
 jackson_id = 274093664370688000
@@ -28,8 +28,8 @@ jackson_id = 274093664370688000
 @bot.event
 async def on_ready(): 
     bot_name = random.choice(bot_name_list)
-    #activity = discord.Game(name="Type $doxxandballs", type=3)
     #name override
+    #activity = discord.Game(name="Type $doxxandballs", type=3)
     activity = discord.Game(name="Type $doxxandballs", type=3)
     await bot.change_presence(status=discord.Status.idle, activity=activity)
     doxx_auto.start()
@@ -38,7 +38,7 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     global t0
-    global channel
+    channel = bot.get_channel(general_id)
     msg = message.content
     if message.author == bot.user:
         return
@@ -47,8 +47,6 @@ async def on_message(message):
         await doxx_him(message.channel)
 
     if msg.startswith('$doxxandballs'):
-        channel = bot.get_channel(message)
-        print(channel)
         await message.channel.send(help_message)
 
     elif msg.startswith('$d'):
