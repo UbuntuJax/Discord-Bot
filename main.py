@@ -28,7 +28,9 @@ jackson_id = 274093664370688000
 @bot.event
 async def on_ready(): 
     bot_name = random.choice(bot_name_list)
-    activity = discord.Game(name=bot_name, type=3)
+    #activity = discord.Game(name="Type $doxxandballs", type=3)
+    #name override
+    activity = discord.Game(name="Type $doxxandballs", type=3)
     await bot.change_presence(status=discord.Status.idle, activity=activity)
     doxx_auto.start()
     print('We have logged in as {0.user}'.format(bot))
@@ -36,7 +38,7 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     global t0
-    channel = bot.get_channel(general_id)
+    global channel
     msg = message.content
     if message.author == bot.user:
         return
@@ -45,6 +47,8 @@ async def on_message(message):
         await doxx_him(message.channel)
 
     if msg.startswith('$doxxandballs'):
+        channel = bot.get_channel(message)
+        print(channel)
         await message.channel.send(help_message)
 
     elif msg.startswith('$d'):
